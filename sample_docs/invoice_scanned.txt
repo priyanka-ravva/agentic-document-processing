@@ -1,0 +1,32 @@
+
+INVOICE
+
+From: TechParts Wholesale Inc.
+      1200 Industrial Blvd, Chicago, IL 60601
+      VAT No: 456-78-9012
+
+To:   MetroOffice Supplies Co.
+      88 Downtown Plaza, Dallas, TX 75201
+
+Invoice No: TW-2024-0562
+Date: October 5, 2024
+Due Date: November 4, 2024
+
+-----------------------------------------------------------------
+Item                          Qty    Unit Price    Total
+-----------------------------------------------------------------
+Office Chair (Ergonomic)      10     $150.00       $1,500.00
+Standing Desk                  5     $320.00       $1,600.00
+Monitor Stand                 15      $45.00         $675.00
+-----------------------------------------------------------------
+                                    Subtotal:      $3,775.00
+                                    Tax (7%):        $264.25
+                                    Discount:          $0.00
+                                    TOTAL DUE:     $4,039.25
+-----------------------------------------------------------------
+
+Payment Terms: Net 30
+Currency: USD
+Bank Account: 7721-4490 | Routing: 011000015 | First Citizens Bank
+
+Thank you for your business!
