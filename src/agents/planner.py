@@ -95,10 +95,20 @@ class PlannerAgent(BaseAgent):
         """Select an extraction tool using deterministic metadata rules."""
 
         metadata = state.get("document_metadata", {})
+        file_extension = metadata.get("file_extension", "")
         text_length = int(metadata.get("text_length", 0))
         has_embedded_text = bool(metadata.get("has_embedded_text", False))
+        supported_text_extensions = {".txt", ".json", ".csv", ".xlsx", ".docx"}
 
-        if has_embedded_text and text_length >= 100:
+        if file_extension in supported_text_extensions:
+            decision = PlannerDecision(
+                selected_tool=ExtractionTool.TEXT_PARSER,
+                reasoning=(
+                    "The input file is a plain text or structured-text document, so TEXT_PARSER is the best first tool."
+                ),
+                confidence=0.9,
+            )
+        elif has_embedded_text and text_length >= 100:
             decision = PlannerDecision(
                 selected_tool=ExtractionTool.PDF_PARSER,
                 reasoning="Embedded text was found with enough content, so PDF_PARSER is the best first tool.",

@@ -12,6 +12,7 @@ from src.graph.state import AgentState, add_log
 from src.tools.document_analyzer import analyze_document
 from src.tools.ocr import extract_text_with_ocr
 from src.tools.pdf_parser import extract_text_from_pdf
+from src.tools.text_parser import extract_text_from_text_document
 
 
 def document_analyzer_node(state: AgentState) -> AgentState:
@@ -56,6 +57,20 @@ def ocr_node(state: AgentState) -> AgentState:
     )
 
 
+def text_parser_node(state: AgentState) -> AgentState:
+    """Run the text/structured document parser tool."""
+
+    extracted_text = extract_text_from_text_document(state["file_path"])
+    updated_state = state.copy()
+    updated_state["extracted_text"] = extracted_text
+    return add_log(
+        updated_state,
+        agent="text_parser_tool",
+        message="Text parser extracted text from a structured document file.",
+        character_count=len(extracted_text),
+    )
+
+
 from src.agents.vision_extractor import VisionExtractionAgent
 
 def build_workflow():
@@ -67,6 +82,7 @@ def build_workflow():
     workflow.add_node("planner", PlannerAgent().invoke)
     workflow.add_node("pdf_parser", pdf_parser_node)
     workflow.add_node("ocr", ocr_node)
+    workflow.add_node("text_parser", text_parser_node)
     workflow.add_node("classifier", ClassifierAgent().invoke)
     workflow.add_node("extractor", ExtractionAgent().invoke)
     workflow.add_node("vision_extractor", VisionExtractionAgent().invoke)
@@ -81,10 +97,12 @@ def build_workflow():
         {
             "pdf_parser": "pdf_parser",
             "ocr": "ocr",
+            "text_parser": "text_parser",
         },
     )
     workflow.add_edge("pdf_parser", "classifier")
     workflow.add_edge("ocr", "classifier")
+    workflow.add_edge("text_parser", "classifier")
     workflow.add_edge("classifier", "extractor")
     workflow.add_edge("extractor", "qa")
     workflow.add_edge("vision_extractor", "qa")

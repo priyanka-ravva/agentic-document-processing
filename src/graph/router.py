@@ -12,6 +12,8 @@ def route_selected_tool(state: AgentState) -> str:
         return "pdf_parser"
     if selected_tool == ExtractionTool.OCR:
         return "ocr"
+    if selected_tool == ExtractionTool.TEXT_PARSER:
+        return "text_parser"
     return "ocr"
 
 

@@ -31,12 +31,22 @@ def main():
     configure_logging(settings.log_level)
 
     st.title("📄 Agentic Document Extraction")
-    st.markdown("Upload a PDF or Image (Invoice, Medical Record, Contract) to extract structured data automatically.")
+    st.markdown(
+        "Upload a PDF, image, or text-based file (Invoice, Medical Record, Contract) to extract structured data automatically."
+    )
 
-    uploaded_file = st.file_uploader("Choose a document", type=["pdf", "png", "jpg", "jpeg"])
+    uploaded_file = st.file_uploader("Choose a document", type=None)
 
     if uploaded_file is not None:
-        if st.button("Process Document", type="primary"):
+        file_extension = Path(uploaded_file.name).suffix.lower()
+        supported_extensions = {".pdf", ".png", ".jpg", ".jpeg", ".txt", ".csv", ".json", ".xlsx", ".docx"}
+
+        if file_extension not in supported_extensions:
+            st.error(
+                f"Unsupported file type: {file_extension}. "
+                "Supported types are: pdf, png, jpg, jpeg, txt, csv, json, xlsx, docx."
+            )
+        elif st.button("Process Document", type="primary"):
             with st.spinner("Processing document... this may take a moment."):
                 # Save the uploaded file to a temporary file
                 upload_stem = Path(uploaded_file.name).stem or "document"

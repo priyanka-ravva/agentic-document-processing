@@ -39,8 +39,16 @@ class QAAgent(BaseAgent):
         else:
             warnings.append("Document type is unknown, so only generic validation was applied.")
 
-        # Require zero missing fields AND zero low-confidence warnings to pass
-        is_valid = bool(structured_output) and len(missing_fields) == 0 and len(warnings) == 0
+        # Require zero missing fields AND zero low-confidence warnings to pass.
+        # Unknown documents have no required fields to check, so the informational
+        # warnings above must not block them from passing once extraction actually
+        # succeeded - otherwise every unknown-classified document is forced through
+        # max retries even when there is nothing left to extract. If extraction itself
+        # failed (state["error"] set by the extractor's all-models-failed fallback),
+        # keep the normal warning gate so the workflow still retries.
+        extraction_failed = bool(state.get("error"))
+        blocking_warnings = [] if document_type == DocumentType.UNKNOWN and not extraction_failed else warnings
+        is_valid = bool(structured_output) and len(missing_fields) == 0 and len(blocking_warnings) == 0
         quality_score = _calculate_quality_score(missing_fields, warnings)
         validation = ValidationResult(
             is_valid=is_valid,

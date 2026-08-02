@@ -148,7 +148,7 @@ class ExtractionAgent(BaseAgent):
                     chunk_count=len(chunk_outputs),
                 )
 
-            updated_state["structured_output"] = _invoke_structured_with_recovery(
+            extracted_output = _invoke_structured_with_recovery(
                 structured_llm=structured_llm,
                 messages=[
                     SystemMessage(content=system_prompt),
@@ -156,6 +156,29 @@ class ExtractionAgent(BaseAgent):
                 ],
                 schema=schema,
             )
+
+            if _is_structured_output_empty(extracted_output) and document_type == DocumentType.INVOICE:
+                fallback_output = _fallback_extract_invoice_fields(extracted_text)
+                if fallback_output:
+                    updated_state["structured_output"] = {
+                        "document_type": "invoice",
+                        "summary": "Extracted invoice fields from plain text fallback.",
+                        "invoice": fallback_output,
+                        "contract": None,
+                        "medical": None,
+                        "additional_fields": {"text_preview": extracted_text[:1000]},
+                        "extraction_warnings": ["Fallback extraction used for invoice text because model output was empty."],
+                    }
+                    return add_log(
+                        updated_state,
+                        agent=self.name,
+                        message="Structured extraction completed with invoice text fallback.",
+                        document_type=_document_type_value(updated_state.get("document_type")),
+                        model=model_name,
+                        fallback_source="invoice_text_regex",
+                    )
+
+            updated_state["structured_output"] = extracted_output
             return add_log(
                 updated_state,
                 agent=self.name,
@@ -197,24 +220,96 @@ def _recover_failed_generation(exc: Exception, schema) -> dict:
     if "failed_generation" not in error_text:
         return {}
 
-    match = re.search(r"<function=[^>]+>\s*(\{.*\})", error_text, flags=re.DOTALL)
+    match = re.search(r"<function=[^>]+>\s*(\{.*\})\s*</function>", error_text, flags=re.DOTALL)
     if not match:
         return {}
 
     json_text = match.group(1)
+    decoded_text = _repair_provider_json(json_text)
     decoder = json.JSONDecoder()
     try:
-        payload, _ = decoder.raw_decode(_repair_provider_json(json_text))
+        payload, _ = decoder.raw_decode(decoded_text)
         payload = _normalize_payload_for_schema(payload, schema)
         return schema.model_validate(payload).model_dump(mode="json")
     except (json.JSONDecodeError, ValueError):
-        return {}
+        # If JSON decoding fails because of trailing text, trim after the last brace.
+        trimmed = decoded_text[: decoded_text.rfind("}") + 1] if "}" in decoded_text else decoded_text
+        try:
+            payload, _ = decoder.raw_decode(trimmed)
+            payload = _normalize_payload_for_schema(payload, schema)
+            return schema.model_validate(payload).model_dump(mode="json")
+        except (json.JSONDecodeError, ValueError):
+            return {}
 
 
 def _repair_provider_json(json_text: str) -> str:
     """Repair common provider failed_generation JSON escaping issues."""
 
-    return json_text.replace("\\'", "'")
+    repaired_text = json_text.replace("\\'", "'")
+    if "</function>" in repaired_text:
+        repaired_text = repaired_text.split("</function>", 1)[0].strip()
+    return repaired_text
+
+
+def _is_structured_output_empty(output: dict) -> bool:
+    """Return true when a structured extraction payload contains no meaningful values."""
+
+    if not isinstance(output, dict) or not output:
+        return True
+
+    for value in output.values():
+        if isinstance(value, dict):
+            if value.get("value") not in (None, "", [], {}):
+                return False
+        elif isinstance(value, list):
+            if value:
+                return False
+        elif value not in (None, "", {}):
+            return False
+
+    return True
+
+
+def _fallback_extract_invoice_fields(extracted_text: str) -> dict | None:
+    """Extract invoice fields from plain text when the model returns empty results."""
+
+    def _match(pattern: str) -> str | None:
+        match = re.search(pattern, extracted_text, flags=re.IGNORECASE | re.MULTILINE)
+        if match:
+            return match.group(1).strip()
+        return None
+
+    invoice_number = _match(r"^\s*invoice(?:\s*no|\s*number|\s*#)[:\s]*([A-Z0-9-]+)\s*$")
+    invoice_date = _match(r"^\s*(?:invoice\s*date|date)[:\s]*([A-Za-z0-9,/ ]+)\s*$")
+    due_date = _match(r"^\s*due\s*date[:\s]*([A-Za-z0-9,/ ]+)\s*$")
+    vendor_name = _match(r"^\s*From:\s*(.+)\s*$")
+    customer_name = _match(r"^\s*To:\s*(.+)\s*$")
+    subtotal = _match(r"^\s*subtotal[:\s]*\$?([0-9,]+\.[0-9]{2})\s*$")
+    tax = _match(r"^\s*tax(?:\s*\(\d+%\))?[:\s]*\$?([0-9,]+\.[0-9]{2})\s*$")
+    total_amount = _match(r"^\s*(?:total\s*due|total\s*amount|total)[:\s]*\$?([0-9,]+\.[0-9]{2})\s*$")
+    currency = _match(r"^\s*currency[:\s]*([A-Z]{3})\s*$")
+
+    if not any([invoice_number, invoice_date, due_date, vendor_name, customer_name, subtotal, tax, total_amount, currency]):
+        return None
+
+    def _field(value: str | None, evidence: str | None) -> dict:
+        return {
+            "value": value if value is not None else None,
+            "confidence": 0.9 if value else 0.0,
+            "evidence": evidence,
+        }
+
+    return {
+        "invoice_number": _field(invoice_number, "Invoice number detected in source text." if invoice_number else None),
+        "invoice_date": _field(invoice_date, "Invoice date detected in source text." if invoice_date else None),
+        "due_date": _field(due_date, "Due date detected in source text." if due_date else None),
+        "vendor_name": _field(vendor_name, "Vendor name section detected in source text." if vendor_name else None),
+        "customer_name": _field(customer_name, "Customer name section detected in source text." if customer_name else None),
+        "subtotal": _field(subtotal, "Subtotal amount detected in source text." if subtotal else None),
+        "tax": _field(tax, "Tax amount detected in source text." if tax else None),
+        "total_amount": _field(total_amount, "Total amount detected in source text." if total_amount else None),
+        "currency": _field(currency, "Currency detected in source text." if currency else None),
+    }
 
 
 def _should_extract_in_chunks(extracted_text: str) -> bool:

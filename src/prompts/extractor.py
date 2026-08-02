@@ -29,6 +29,12 @@ Extraction rules:
 - Include short evidence phrases where possible.
 - Keep the summary brief and factual.
 - Add warnings for missing, ambiguous, or low-confidence values.
+- Only populate the "invoice", "contract", or "medical" section that matches the
+  document_type you chose. Leave the other two sections as null - do not return
+  placeholder objects filled with null-valued fields for the sections that do not apply.
+- Inside the "medical" section, "diagnosis", "medications", and "recommendations" are
+  plain JSON arrays of strings (e.g. ["Type 2 Diabetes"]), never objects with
+  value/confidence/evidence. The same applies to "parties" in the "contract" section.
 
 Return only data that is supported by the document text.
 """.strip()

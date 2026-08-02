@@ -19,6 +19,11 @@ from src.schemas.extraction import (
     MedicalExtraction,
 )
 
+# Groq models known to accept image input, per the Groq /models API's
+# "input_modalities" field. GROQ_MODEL/GROQ_FALLBACK_MODELS are configured for
+# text tasks and are not assumed to support vision unless listed here.
+VISION_CAPABLE_MODELS = {"qwen/qwen3.6-27b"}
+
 
 class VisionExtractionAgent(BaseAgent):
     """Extracts structured information from document images using a Vision LLM."""
@@ -97,12 +102,20 @@ class VisionExtractionAgent(BaseAgent):
         # Try vision-capable fallback models first. Rate limits are not retried
         # because the provider has already told us more calls will fail.
         settings = get_settings()
-        fallback_models = [
+        configured_models = [
             model.strip()
-            for model in settings.groq_fallback_models.split(",")
+            for model in [*settings.groq_fallback_models.split(","), settings.groq_model]
             if model.strip()
         ]
-        vision_model_names = list(dict.fromkeys([*fallback_models, settings.groq_model]))
+        # Only send image payloads to models that actually accept image input.
+        # GROQ_MODEL/GROQ_FALLBACK_MODELS are chosen for text classification/extraction
+        # and may not support vision (e.g. llama-3.1-8b-instant is text-only), so a
+        # configured text-only model must never be attempted here.
+        vision_model_names = [
+            model for model in dict.fromkeys(configured_models) if model in VISION_CAPABLE_MODELS
+        ]
+        if not vision_model_names:
+            vision_model_names = [settings.groq_model]
 
         errors: list[str] = []
         for vision_model_name in vision_model_names[:2]:

@@ -13,6 +13,7 @@ def analyze_document(file_path: str) -> dict[str, Any]:
     if not path.exists():
         raise FileNotFoundError(f"Document not found: {file_path}")
 
+    supported_text_extensions = {".txt", ".csv", ".json", ".xlsx", ".docx"}
     metadata: dict[str, Any] = {
         "file_name": path.name,
         "file_extension": path.suffix.lower(),
@@ -22,6 +23,7 @@ def analyze_document(file_path: str) -> dict[str, Any]:
         "has_embedded_text": False,
         "image_count": 0,
         "is_pdf": path.suffix.lower() == ".pdf",
+        "is_text_document": path.suffix.lower() in supported_text_extensions,
     }
 
     if not metadata["is_pdf"]:

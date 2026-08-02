@@ -10,6 +10,7 @@ class ExtractionTool(StrEnum):
 
     PDF_PARSER = "PDF_PARSER"
     OCR = "OCR"
+    TEXT_PARSER = "TEXT_PARSER"
     VISION_LLM = "VISION_LLM"
 
 

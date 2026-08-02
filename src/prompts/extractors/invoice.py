@@ -13,8 +13,9 @@ Extraction rules:
 - Extract subtotal, tax, and total amounts.
 - Every extracted field must be an object with exactly this shape:
   {"value": "...", "confidence": 0.0-1.0, "evidence": "..."}
-- Never return raw strings for fields such as invoice_number, vendor_name, customer_name, dates, or amounts.
+- Never return raw strings for fields such as invoice_number, vendor_name, customer_name, dates, amounts, or currency.
 - Use {"value": null, "confidence": 0.0, "evidence": null} when a field is not present.
+- If the document includes a currency code like USD, return it as an extracted field object.
 - Include short evidence phrases where possible.
 - Keep the summary brief and factual.
 - Add warnings for missing, ambiguous, or low-confidence values.
