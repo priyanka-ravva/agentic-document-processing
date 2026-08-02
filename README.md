@@ -258,6 +258,17 @@ Build:
 docker build -t agentic-document-agent .
 ```
 
+## Further Enhancements
+
+Potential next steps for this project include expanding support to additional document formats beyond PDFs and images, such as:
+
+- `.docx` for Word documents
+- `.xlsx` and `.xls` for spreadsheets
+- `.json` for structured data files
+- `.txt` for plain text documents
+
+These enhancements would involve adding format-specific parsers and extending the routing logic so the same agent workflow can process a wider range of business documents with minimal changes.
+
 Run:
 
 ```bash
