@@ -1,0 +1,86 @@
+[
+  {
+    "id": "invoice_simple",
+    "name": "Simple searchable invoice",
+    "passed": true,
+    "duration_seconds": 1.44,
+    "expected_document_type": "invoice",
+    "actual_document_type": "invoice",
+    "expected_tool": "PDF_PARSER",
+    "actual_tool": "PDF_PARSER",
+    "missing_required_fields": [],
+    "quality_score": 1.0,
+    "trace_path": "logs/runs/20260802T104913Z_invoice_simple_trace.json"
+  },
+  {
+    "id": "medical_discharge",
+    "name": "Medical discharge summary",
+    "passed": true,
+    "duration_seconds": 1.23,
+    "expected_document_type": "medical",
+    "actual_document_type": "medical",
+    "expected_tool": "PDF_PARSER",
+    "actual_tool": "PDF_PARSER",
+    "missing_required_fields": [],
+    "quality_score": 1.0,
+    "trace_path": "logs/runs/20260802T104914Z_medical_discharge_trace.json"
+  },
+  {
+    "id": "contract_nda",
+    "name": "Non-disclosure agreement",
+    "passed": true,
+    "duration_seconds": 34.71,
+    "expected_document_type": "contract",
+    "actual_document_type": "contract",
+    "expected_tool": "PDF_PARSER",
+    "actual_tool": "PDF_PARSER",
+    "missing_required_fields": [],
+    "quality_score": 1.0,
+    "trace_path": "logs/runs/20260802T104949Z_contract_nda_trace.json"
+  },
+  {
+    "id": "invoice_image_ocr",
+    "name": "Image invoice requiring OCR",
+    "passed": true,
+    "duration_seconds": 34.92,
+    "expected_document_type": "invoice",
+    "actual_document_type": "invoice",
+    "expected_tool": [
+      "OCR",
+      "VISION_LLM"
+    ],
+    "actual_tool": "OCR",
+    "missing_required_fields": [],
+    "quality_score": 1.0,
+    "trace_path": "logs/runs/20260802T105024Z_invoice_test_0002_trace.json"
+  },
+  {
+    "id": "unknown_test_sample",
+    "name": "Unknown document sample",
+    "passed": true,
+    "duration_seconds": 135.78,
+    "expected_document_type": "unknown",
+    "actual_document_type": "unknown",
+    "expected_tool": "PDF_PARSER",
+    "actual_tool": "PDF_PARSER",
+    "missing_required_fields": [],
+    "quality_score": 0.85,
+    "trace_path": "logs/runs/20260802T105240Z_test_sample_trace.json"
+  },
+  {
+    "id": "invoice_image_ocr_0007",
+    "name": "Additional image invoice requiring OCR",
+    "passed": true,
+    "duration_seconds": 3.41,
+    "expected_document_type": "invoice",
+    "actual_document_type": "invoice",
+    "expected_tool": [
+      "OCR",
+      "VISION_LLM"
+    ],
+    "actual_tool": "OCR",
+    "missing_required_fields": [],
+    "quality_score": 1.0,
+    "trace_path": "logs/runs/20260802T105456Z_invoice_test_0007_trace.json"
+  }
+]

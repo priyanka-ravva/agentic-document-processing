@@ -1,0 +1,78 @@
+[
+  {
+    "id": "invoice_simple",
+    "name": "Simple searchable invoice",
+    "file_path": "sample_docs/invoice_simple.pdf",
+    "expected_document_type": "invoice",
+    "expected_tool": "PDF_PARSER",
+    "required_fields": [
+      "invoice_number.value",
+      "invoice_date.value",
+      "vendor_name.value",
+      "total_amount.value"
+    ]
+  },
+  {
+    "id": "medical_discharge",
+    "name": "Medical discharge summary",
+    "file_path": "sample_docs/medical_discharge.pdf",
+    "expected_document_type": "medical",
+    "expected_tool": "PDF_PARSER",
+    "required_fields": [
+      "patient_name.value",
+      "visit_date.value",
+      "provider_name.value"
+    ]
+  },
+  {
+    "id": "contract_nda",
+    "name": "Non-disclosure agreement",
+    "file_path": "sample_docs/contract_nda.pdf",
+    "expected_document_type": "contract",
+    "expected_tool": "PDF_PARSER",
+    "required_fields": [
+      "contract_title.value",
+      "effective_date.value"
+    ]
+  },
+  {
+    "id": "invoice_image_ocr",
+    "name": "Image invoice requiring OCR",
+    "file_path": "sample_docs/invoice_test_0002.jpg",
+    "expected_document_type": "invoice",
+    "expected_tool": [
+      "OCR",
+      "VISION_LLM"
+    ],
+    "required_fields": [
+      "invoice_number.value",
+      "invoice_date.value",
+      "vendor_name.value",
+      "total_amount.value"
+    ]
+  },
+  {
+    "id": "unknown_test_sample",
+    "name": "Unknown document sample",
+    "file_path": "sample_docs/test_sample.pdf",
+    "expected_document_type": "unknown",
+    "expected_tool": "PDF_PARSER",
+    "required_fields": []
+  },
+  {
+    "id": "invoice_image_ocr_0007",
+    "name": "Additional image invoice requiring OCR",
+    "file_path": "sample_docs/invoice_test_0007.jpg",
+    "expected_document_type": "invoice",
+    "expected_tool": [
+      "OCR",
+      "VISION_LLM"
+    ],
+    "required_fields": [
+      "invoice_number.value",
+      "invoice_date.value",
+      "vendor_name.value",
+      "total_amount.value"
+    ]
+  }
+]

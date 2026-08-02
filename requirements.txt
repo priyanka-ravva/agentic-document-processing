@@ -1,0 +1,22 @@
+# Core agent framework
+langgraph>=1.2.0,<2.0.0
+langchain-core>=1.5.0,<2.0.0
+langchain-groq>=1.1.0,<2.0.0
+
+# Configuration and validation
+pydantic>=2.10.4,<3.0.0
+pydantic-settings>=2.7.0,<3.0.0
+python-dotenv>=1.0.1,<2.0.0
+
+# App/runtime utilities
+rich>=13.9.4,<14.0.0
+tenacity>=9.0.0,<10.0.0
+
+# Document parsing and OCR
+pymupdf>=1.25.1,<2.0.0
+pillow>=11.0.0,<13.0.0
+pytesseract>=0.3.13,<0.4.0
+
+# UI
+streamlit>=1.40.0,<2.0.0
+watchdog>=4.0.0,<7.0.0
