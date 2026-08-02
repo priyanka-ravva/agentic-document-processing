@@ -17,7 +17,6 @@ Add your Groq API key to `.env`, then run:
 
 ```bash
 python -m src.main --file sample_docs/invoice_simple.pdf --show-json
-pytest -q
 python evaluation/evaluate.py --scenarios evaluation/scenarios.json
 ```
 
