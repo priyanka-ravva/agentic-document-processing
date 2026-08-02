@@ -2,7 +2,7 @@
 
 ## 1. Summary
 
-This project implements an agentic document processing system for invoices, medical records, and contracts. The agent receives a PDF or image, decides whether to use embedded PDF text or OCR, classifies the document type, extracts structured fields with an LLM, validates the output, and records a complete decision trace.
+This project implements an agentic document processing system for invoices, medical records, and contracts. The agent receives a PDF, image, or text/structured file (txt, csv, json, xlsx, docx), decides which extraction tool fits (PDF parser, OCR, or text parser), classifies the document type, extracts structured fields with an LLM, validates the output, and records a complete decision trace.
 
 The implementation uses:
 
@@ -28,11 +28,11 @@ The project also includes a Streamlit UI, a Dockerfile, evaluation scenarios, an
 | At least one tool/function call | PDF parser, OCR tool, document analyzer, and optional vision extraction. |
 | Prompt engineering | Prompts are separated by agent and document type under `src/prompts/`. |
 | Structured output parsing | LangChain `with_structured_output()` with Pydantic schemas. |
-| Advanced technique | Multi-agent collaboration plus QA/reflection self-critique loop. |
+| Advanced technique | Multi-agent collaboration (planner, classifier, extractor, QA, reflector), with deterministic QA/reflection gating for retry and fallback decisions. |
 | LLM failure handling | Configured fallback models, low-temperature LLM calls, structured fallback responses, provider tool-call recovery, and vision failure preservation. |
 | Input validation and guardrails | File validation, supported file-type checks, required-field QA, confidence checks, unknown-document fallback. |
 | Logging/tracing | Per-agent logs stored in workflow state and persisted to `logs/runs/`. |
-| Evaluation scenarios | Seven scenarios in `evaluation/scenarios.json`. |
+| Evaluation scenarios | Six scenarios in `evaluation/scenarios.json`. |
 | Lightweight evaluation | `evaluation/evaluate.py` compares document type, selected tool, required fields, and QA score. |
 | README and setup commands | Provided in `README.md`. |
 
@@ -40,22 +40,24 @@ The project also includes a Streamlit UI, a Dockerfile, evaluation scenarios, an
 
 ```mermaid
 flowchart TD
-    A[Input document: PDF or image] --> B[Document analyzer]
-    B --> C{Enough embedded PDF text?}
+    A[Input document: PDF, image, or text/structured file] --> B[Document analyzer]
+    B --> C[Planner agent<br/>LLM decision + deterministic fallback rules]
 
-    C -->|Yes| D[PDF parser tool]
-    C -->|No| E[OCR tool]
+    C -->|Searchable PDF| D[PDF parser tool]
+    C -->|Image or scanned PDF| E[OCR tool]
+    C -->|txt, csv, json, xlsx, docx| P[Text parser tool]
 
     D --> F[Classifier agent<br/>invoice, medical, contract, unknown]
     E --> F
+    P --> F
 
     F --> G[Extraction agent<br/>schema-specific or generic fallback]
     G --> H[QA agent<br/>Quality Assurance]
     H --> I{Valid output?}
 
     I -->|Yes| J[Final structured JSON]
-    I -->|No, OCR result| K[Vision extraction fallback]
-    I -->|No, parser/text result| L[Retry extraction with QA feedback]
+    I -->|No, PDF/text-parser result| L[Retry extraction with QA feedback]
+    I -->|No, OCR result: first failure, or still failing after one retry| K[Vision extraction fallback]
 
     K --> H
     L --> G
@@ -385,6 +387,6 @@ evaluation/evaluation_results.json
 - **Pydantic schemas**: make extraction outputs machine-checkable.
 - **Low LLM temperature**: `GROQ_TEMPERATURE` defaults to `0.1` for more repeatable structured output.
 - **Large searchable PDF chunking**: page-aware text chunks reduce oversized prompt failures while preserving the existing one-record output shape.
-- **QA and reflection loop**: provides a practical Quality Assurance/self-critique mechanism without relying on hidden reasoning.
+- **QA and reflection loop**: a deterministic Quality Assurance and retry/fallback gate (required-field checks, confidence thresholds, retry routing) rather than an LLM self-critique call, so decisions are inspectable without relying on hidden reasoning.
 - **Vision fallback only after OCR weakness**: avoids unnecessary multimodal calls when OCR is already good enough. PDF fallback renders only the first page to keep payloads small.
 - **Trace preservation**: every run stores the observable workflow decisions and final result for review.

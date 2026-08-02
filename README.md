@@ -31,6 +31,7 @@ Supported input types:
 - Searchable PDFs
 - Scanned PDFs
 - Image documents: `png`, `jpg`, `jpeg`
+- Text and structured-text documents: `txt`, `csv`, `json`, `xlsx`, `docx`
 
 Supported document categories:
 
@@ -60,14 +61,16 @@ flowchart TD
     B --> C[Planner agent]
     C -->|Searchable PDF| D[PDF parser tool]
     C -->|Image or scanned document| E[OCR tool]
+    C -->|txt, csv, json, xlsx, docx| P[Text parser tool]
     D --> F[Classifier agent<br/>invoice, medical, contract, unknown]
     E --> F
+    P --> F
     F --> G[Extraction agent]
     G --> H[QA agent]
     H --> I[Reflection agent]
     I -->|Valid| J[Final JSON and trace]
-    I -->|Invalid text extraction| G
-    I -->|Invalid OCR extraction| K[Vision extraction fallback]
+    I -->|Invalid, PDF/text-parser result| G
+    I -->|Invalid, OCR result: first failure, or still failing after one retry| K[Vision extraction fallback]
     K --> H
 ```
 
@@ -177,6 +180,10 @@ LOG_LEVEL=INFO
 
 `GROQ_TEMPERATURE` defaults to `0.1` in the application config to keep classification and extraction mostly deterministic.
 
+### A note on Groq rate limits
+
+Groq's free tier enforces a daily tokens-per-day (TPD) quota per model (for example, 500,000 TPD for `llama-3.1-8b-instant` at the time of writing). Running the full evaluation suite, or repeated CLI/UI runs, can exhaust this quota - if you see repeated `429 Too Many Requests` errors and documents start classifying as `unknown`, that is an exhausted TPD quota, not a bug in the workflow. The quota is scoped to your Groq organization, so generating a new API key under the same account does not reset it; either wait for the daily window to reset, use a different Groq account, or upgrade to a paid/Dev Tier key for higher limits. See the [Groq Console billing settings](https://console.groq.com/settings/billing) for details.
+
 ## Large Documents and Fallbacks
 
 Searchable PDFs are parsed page by page with page markers. If extracted PDF text is large enough, the extraction agent processes the text in page-aware chunks and merges the chunk outputs into one final structured result. This keeps the normal small-document path unchanged while reducing large-prompt failures.
@@ -260,14 +267,11 @@ docker build -t agentic-document-agent .
 
 ## Further Enhancements
 
-Potential next steps for this project include expanding support to additional document formats beyond PDFs and images, such as:
+Potential next steps for this project include:
 
-- `.docx` for Word documents
-- `.xlsx` and `.xls` for spreadsheets
-- `.json` for structured data files
-- `.txt` for plain text documents
-
-These enhancements would involve adding format-specific parsers and extending the routing logic so the same agent workflow can process a wider range of business documents with minimal changes.
+- Adding `.xls` (legacy Excel) support alongside the existing `.xlsx` parser.
+- Preserving table content when parsing `.docx` files (currently paragraph text only).
+- Extending OCR/vision fallback to inspect every page of a scanned multi-page PDF, not just the first.
 
 Run:
 
