@@ -31,7 +31,7 @@ Supported input types:
 - Searchable PDFs
 - Scanned PDFs
 - Image documents: `png`, `jpg`, `jpeg`
-- Text and structured-text documents: `txt`, `csv`, `json`, `xlsx`, `docx`
+- Text and structured-text documents: `txt`
 
 Supported document categories:
 
@@ -152,6 +152,13 @@ Install Python dependencies:
 pip install -r requirements.txt
 ```
 
+Note: In case any wheel related issue occurs, run the below commands
+
+```bash
+python -m pip install --upgrade pip setuptools wheel
+pip install -r requirements.txt
+```
+
 Configure environment variables:
 
 ```bash
@@ -265,14 +272,6 @@ Build:
 docker build -t agentic-document-agent .
 ```
 
-## Further Enhancements
-
-Potential next steps for this project include:
-
-- Adding `.xls` (legacy Excel) support alongside the existing `.xlsx` parser.
-- Preserving table content when parsing `.docx` files (currently paragraph text only).
-- Extending OCR/vision fallback to inspect every page of a scanned multi-page PDF, not just the first.
-
 Run:
 
 ```bash
@@ -284,6 +283,15 @@ Open:
 ```text
 http://localhost:8501
 ```
+
+## Further Enhancements
+
+Potential next steps for this project include:
+
+- Adding `.xls` (legacy Excel) support alongside the existing `.xlsx` parser.
+- Preserving table content when parsing `.docx` files (currently paragraph text only).
+- Extending OCR/vision fallback to inspect every page of a scanned multi-page PDF, not just the first.
+- Enhancement of prompts based on the file format for each document type to make extraction more robust.
 
 ## Deliverables
 
