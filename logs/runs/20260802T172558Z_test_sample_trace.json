@@ -1,0 +1,106 @@
+{
+  "timestamp_utc": "20260802T172558Z",
+  "file_path": "sample_docs/test_sample.pdf",
+  "document_metadata": {
+    "file_name": "test_sample.pdf",
+    "file_extension": ".pdf",
+    "file_size_bytes": 18810,
+    "page_count": 1,
+    "text_length": 2877,
+    "has_embedded_text": true,
+    "image_count": 0,
+    "is_pdf": true,
+    "is_text_document": false
+  },
+  "selected_tool": "PDF_PARSER",
+  "planner_reasoning": "PDF has reliable embedded text",
+  "structured_output": {
+    "document_type": "unknown",
+    "summary": "This is a simple PDF file.",
+    "invoice": null,
+    "contract": null,
+    "medical": null,
+    "additional_fields": {},
+    "extraction_warnings": []
+  },
+  "validation_result": {
+    "is_valid": true,
+    "missing_fields": [],
+    "warnings": [
+      "Document type is unknown, so only generic validation was applied."
+    ],
+    "quality_score": 0.95
+  },
+  "retry_count": 0,
+  "logs": [
+    {
+      "agent": "document_analyzer",
+      "message": "Document metadata collected.",
+      "metadata": {
+        "metadata": {
+          "file_name": "test_sample.pdf",
+          "file_extension": ".pdf",
+          "file_size_bytes": 18810,
+          "page_count": 1,
+          "text_length": 2877,
+          "has_embedded_text": true,
+          "image_count": 0,
+          "is_pdf": true,
+          "is_text_document": false
+        }
+      }
+    },
+    {
+      "agent": "planner",
+      "message": "Planner selected extraction tool with LLM reasoning summary.",
+      "metadata": {
+        "selected_tool": "PDF_PARSER",
+        "reasoning": "PDF has reliable embedded text",
+        "confidence": 0.9,
+        "source": "llm",
+        "model": "llama-3.1-8b-instant"
+      }
+    },
+    {
+      "agent": "pdf_parser_tool",
+      "message": "PDF parser extracted embedded text.",
+      "metadata": {
+        "character_count": 2892
+      }
+    },
+    {
+      "agent": "classifier",
+      "message": "Classification completed.",
+      "metadata": {
+        "document_type": "unknown",
+        "model": "llama-3.1-8b-instant"
+      }
+    },
+    {
+      "agent": "extractor",
+      "message": "Structured extraction completed.",
+      "metadata": {
+        "document_type": "unknown",
+        "model": "llama-3.1-8b-instant"
+      }
+    },
+    {
+      "agent": "qa",
+      "message": "QA validation completed.",
+      "metadata": {
+        "is_valid": true,
+        "missing_fields": [],
+        "quality_score": 0.95
+      }
+    },
+    {
+      "agent": "reflector",
+      "message": "Reflection completed. Extraction is acceptable for final response.",
+      "metadata": {
+        "is_valid": true,
+        "quality_score": 0.95
+      }
+    }
+  ],
+  "error": null
+}
