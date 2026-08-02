@@ -1,0 +1,140 @@
+{
+  "timestamp_utc": "20260802T104913Z",
+  "file_path": "sample_docs/invoice_simple.pdf",
+  "document_metadata": {
+    "file_name": "invoice_simple.pdf",
+    "file_extension": ".pdf",
+    "file_size_bytes": 2977,
+    "page_count": 1,
+    "text_length": 671,
+    "has_embedded_text": true,
+    "image_count": 0,
+    "is_pdf": true
+  },
+  "selected_tool": "PDF_PARSER",
+  "planner_reasoning": "PDF has reliable embedded text",
+  "structured_output": {
+    "invoice_number": {
+      "value": "INV-2024-00847",
+      "confidence": 0.95,
+      "evidence": "Invoice No.: INV-2024-00847"
+    },
+    "invoice_date": {
+      "value": "September 15, 2024",
+      "confidence": 0.95,
+      "evidence": "Invoice Date: September 15, 2024"
+    },
+    "due_date": {
+      "value": "October 15, 2024",
+      "confidence": 0.95,
+      "evidence": "Due Date: October 15, 2024"
+    },
+    "vendor_name": {
+      "value": "Acme Supplies Ltd.",
+      "confidence": 0.95,
+      "evidence": "Acme Supplies Ltd."
+    },
+    "customer_name": {
+      "value": "GlobalTech Inc.",
+      "confidence": 0.95,
+      "evidence": "GlobalTech Inc."
+    },
+    "subtotal": {
+      "value": "$4,500.00",
+      "confidence": 0.95,
+      "evidence": "Subtotal: $4,500.00"
+    },
+    "tax": {
+      "value": "$360.00",
+      "confidence": 0.95,
+      "evidence": "Tax (8.0%): $360.00"
+    },
+    "total_amount": {
+      "value": "$4,860.00",
+      "confidence": 0.95,
+      "evidence": "TOTAL DUE: $4,860.00"
+    },
+    "currency": {
+      "value": null,
+      "confidence": 0.0,
+      "evidence": null
+    }
+  },
+  "validation_result": {
+    "is_valid": true,
+    "missing_fields": [],
+    "warnings": [],
+    "quality_score": 1.0
+  },
+  "retry_count": 0,
+  "logs": [
+    {
+      "agent": "document_analyzer",
+      "message": "Document metadata collected.",
+      "metadata": {
+        "metadata": {
+          "file_name": "invoice_simple.pdf",
+          "file_extension": ".pdf",
+          "file_size_bytes": 2977,
+          "page_count": 1,
+          "text_length": 671,
+          "has_embedded_text": true,
+          "image_count": 0,
+          "is_pdf": true
+        }
+      }
+    },
+    {
+      "agent": "planner",
+      "message": "Planner selected extraction tool with LLM reasoning summary.",
+      "metadata": {
+        "selected_tool": "PDF_PARSER",
+        "reasoning": "PDF has reliable embedded text",
+        "confidence": 0.9,
+        "source": "llm",
+        "model": "llama-3.1-8b-instant"
+      }
+    },
+    {
+      "agent": "pdf_parser_tool",
+      "message": "PDF parser extracted embedded text.",
+      "metadata": {
+        "character_count": 686
+      }
+    },
+    {
+      "agent": "classifier",
+      "message": "Classification completed.",
+      "metadata": {
+        "document_type": "invoice",
+        "model": "llama-3.1-8b-instant"
+      }
+    },
+    {
+      "agent": "extractor",
+      "message": "Structured extraction completed.",
+      "metadata": {
+        "document_type": "invoice",
+        "model": "llama-3.1-8b-instant"
+      }
+    },
+    {
+      "agent": "qa",
+      "message": "QA validation completed.",
+      "metadata": {
+        "is_valid": true,
+        "missing_fields": [],
+        "quality_score": 1.0
+      }
+    },
+    {
+      "agent": "reflector",
+      "message": "Reflection completed. Extraction is acceptable for final response.",
+      "metadata": {
+        "is_valid": true,
+        "quality_score": 1.0
+      }
+    }
+  ],
+  "error": null
+}

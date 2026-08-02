@@ -1,0 +1,124 @@
+{
+  "timestamp_utc": "20260802T104949Z",
+  "file_path": "sample_docs/contract_nda.pdf",
+  "document_metadata": {
+    "file_name": "contract_nda.pdf",
+    "file_extension": ".pdf",
+    "file_size_bytes": 4818,
+    "page_count": 2,
+    "text_length": 3531,
+    "has_embedded_text": true,
+    "image_count": 0,
+    "is_pdf": true
+  },
+  "selected_tool": "PDF_PARSER",
+  "planner_reasoning": "PDF has reliable embedded text",
+  "structured_output": {
+    "contract_title": {
+      "value": "MUTUAL NON-DISCLOSURE AGREEMENT",
+      "confidence": 1.0,
+      "evidence": "Page 1"
+    },
+    "effective_date": {
+      "value": "January 1, 2024",
+      "confidence": 1.0,
+      "evidence": "Page 1"
+    },
+    "parties": [
+      "AlphaCorp Inc.",
+      "BetaSolutions LLC"
+    ],
+    "term": {
+      "value": "2 years",
+      "confidence": 1.0,
+      "evidence": "Section 3"
+    },
+    "governing_law": {
+      "value": "State of Delaware",
+      "confidence": 1.0,
+      "evidence": "Section 10"
+    },
+    "termination_clause": {
+      "value": "30 days prior written notice",
+      "confidence": 1.0,
+      "evidence": "Section 8"
+    }
+  },
+  "validation_result": {
+    "is_valid": true,
+    "missing_fields": [],
+    "warnings": [],
+    "quality_score": 1.0
+  },
+  "retry_count": 0,
+  "logs": [
+    {
+      "agent": "document_analyzer",
+      "message": "Document metadata collected.",
+      "metadata": {
+        "metadata": {
+          "file_name": "contract_nda.pdf",
+          "file_extension": ".pdf",
+          "file_size_bytes": 4818,
+          "page_count": 2,
+          "text_length": 3531,
+          "has_embedded_text": true,
+          "image_count": 0,
+          "is_pdf": true
+        }
+      }
+    },
+    {
+      "agent": "planner",
+      "message": "Planner selected extraction tool with LLM reasoning summary.",
+      "metadata": {
+        "selected_tool": "PDF_PARSER",
+        "reasoning": "PDF has reliable embedded text",
+        "confidence": 0.9,
+        "source": "llm",
+        "model": "llama-3.1-8b-instant"
+      }
+    },
+    {
+      "agent": "pdf_parser_tool",
+      "message": "PDF parser extracted embedded text.",
+      "metadata": {
+        "character_count": 3563
+      }
+    },
+    {
+      "agent": "classifier",
+      "message": "Classification completed.",
+      "metadata": {
+        "document_type": "contract",
+        "model": "llama-3.1-8b-instant"
+      }
+    },
+    {
+      "agent": "extractor",
+      "message": "Structured extraction completed.",
+      "metadata": {
+        "document_type": "contract",
+        "model": "llama-3.1-8b-instant"
+      }
+    },
+    {
+      "agent": "qa",
+      "message": "QA validation completed.",
+      "metadata": {
+        "is_valid": true,
+        "missing_fields": [],
+        "quality_score": 1.0
+      }
+    },
+    {
+      "agent": "reflector",
+      "message": "Reflection completed. Extraction is acceptable for final response.",
+      "metadata": {
+        "is_valid": true,
+        "quality_score": 1.0
+      }
+    }
+  ],
+  "error": null
+}

@@ -1,0 +1,128 @@
+{
+  "timestamp_utc": "20260802T104914Z",
+  "file_path": "sample_docs/medical_discharge.pdf",
+  "document_metadata": {
+    "file_name": "medical_discharge.pdf",
+    "file_extension": ".pdf",
+    "file_size_bytes": 5569,
+    "page_count": 2,
+    "text_length": 2230,
+    "has_embedded_text": true,
+    "image_count": 0,
+    "is_pdf": true
+  },
+  "selected_tool": "PDF_PARSER",
+  "planner_reasoning": "PDF has reliable embedded text.",
+  "structured_output": {
+    "patient_name": {
+      "value": "John Michael Smith",
+      "confidence": 1.0,
+      "evidence": "Patient Name: John Michael Smith"
+    },
+    "visit_date": {
+      "value": "September 13, 2024",
+      "confidence": 1.0,
+      "evidence": "Discharge Date: September 13, 2024"
+    },
+    "provider_name": {
+      "value": "Dr. Sarah Johnson, MD",
+      "confidence": 1.0,
+      "evidence": "Attending Physician: Dr. Sarah Johnson, MD"
+    },
+    "diagnosis": [
+      "Type 2 Diabetes Mellitus, uncontrolled",
+      "Essential (Primary) Hypertension",
+      "Chest Pain, unspecified"
+    ],
+    "medications": [
+      "Metformin",
+      "Lisinopril",
+      "Aspirin",
+      "Atorvastatin"
+    ],
+    "recommendations": [
+      "Continue all home medications as prescribed above",
+      "Follow a low-sodium (less than 2g/day), low-carbohydrate diet",
+      "Restrict strenuous physical activity for 1 week",
+      "Monitor blood pressure daily and maintain log",
+      "Return to ER immediately if chest pain recurs or breathing worsens"
+    ]
+  },
+  "validation_result": {
+    "is_valid": true,
+    "missing_fields": [],
+    "warnings": [],
+    "quality_score": 1.0
+  },
+  "retry_count": 0,
+  "logs": [
+    {
+      "agent": "document_analyzer",
+      "message": "Document metadata collected.",
+      "metadata": {
+        "metadata": {
+          "file_name": "medical_discharge.pdf",
+          "file_extension": ".pdf",
+          "file_size_bytes": 5569,
+          "page_count": 2,
+          "text_length": 2230,
+          "has_embedded_text": true,
+          "image_count": 0,
+          "is_pdf": true
+        }
+      }
+    },
+    {
+      "agent": "planner",
+      "message": "Planner selected extraction tool with LLM reasoning summary.",
+      "metadata": {
+        "selected_tool": "PDF_PARSER",
+        "reasoning": "PDF has reliable embedded text.",
+        "confidence": 0.9,
+        "source": "llm",
+        "model": "llama-3.1-8b-instant"
+      }
+    },
+    {
+      "agent": "pdf_parser_tool",
+      "message": "PDF parser extracted embedded text.",
+      "metadata": {
+        "character_count": 2262
+      }
+    },
+    {
+      "agent": "classifier",
+      "message": "Classification completed.",
+      "metadata": {
+        "document_type": "medical",
+        "model": "llama-3.1-8b-instant"
+      }
+    },
+    {
+      "agent": "extractor",
+      "message": "Structured extraction completed.",
+      "metadata": {
+        "document_type": "medical",
+        "model": "llama-3.1-8b-instant"
+      }
+    },
+    {
+      "agent": "qa",
+      "message": "QA validation completed.",
+      "metadata": {
+        "is_valid": true,
+        "missing_fields": [],
+        "quality_score": 1.0
+      }
+    },
+    {
+      "agent": "reflector",
+      "message": "Reflection completed. Extraction is acceptable for final response.",
+      "metadata": {
+        "is_valid": true,
+        "quality_score": 1.0
+      }
+    }
+  ],
+  "error": null
+}

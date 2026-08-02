@@ -1,0 +1,140 @@
+{
+  "timestamp_utc": "20260802T105456Z",
+  "file_path": "sample_docs/invoice_test_0007.jpg",
+  "document_metadata": {
+    "file_name": "invoice_test_0007.jpg",
+    "file_extension": ".jpg",
+    "file_size_bytes": 647460,
+    "page_count": 0,
+    "text_length": 0,
+    "has_embedded_text": false,
+    "image_count": 0,
+    "is_pdf": false
+  },
+  "selected_tool": "OCR",
+  "planner_reasoning": "Document is image-based and has no embedded text.",
+  "structured_output": {
+    "invoice_number": {
+      "value": "PO-136319",
+      "confidence": 0.95,
+      "evidence": "PO-136319"
+    },
+    "invoice_date": {
+      "value": "Oct. 14, 2023",
+      "confidence": 0.95,
+      "evidence": "Oct. 14, 2023"
+    },
+    "due_date": {
+      "value": null,
+      "confidence": 0.0,
+      "evidence": null
+    },
+    "vendor_name": {
+      "value": "Flora Landscape Management",
+      "confidence": 0.95,
+      "evidence": "Flora Landscape Management"
+    },
+    "customer_name": {
+      "value": "DYNAPLAS LTD.",
+      "confidence": 0.95,
+      "evidence": "Bill To: DYNAPLAS LTD."
+    },
+    "subtotal": {
+      "value": "$1355",
+      "confidence": 0.95,
+      "evidence": "$1355"
+    },
+    "tax": {
+      "value": "0%",
+      "confidence": 0.95,
+      "evidence": "TAX 0%"
+    },
+    "total_amount": {
+      "value": "$2558",
+      "confidence": 0.95,
+      "evidence": "$2558"
+    },
+    "currency": {
+      "value": null,
+      "confidence": 0.0,
+      "evidence": null
+    }
+  },
+  "validation_result": {
+    "is_valid": true,
+    "missing_fields": [],
+    "warnings": [],
+    "quality_score": 1.0
+  },
+  "retry_count": 0,
+  "logs": [
+    {
+      "agent": "document_analyzer",
+      "message": "Document metadata collected.",
+      "metadata": {
+        "metadata": {
+          "file_name": "invoice_test_0007.jpg",
+          "file_extension": ".jpg",
+          "file_size_bytes": 647460,
+          "page_count": 0,
+          "text_length": 0,
+          "has_embedded_text": false,
+          "image_count": 0,
+          "is_pdf": false
+        }
+      }
+    },
+    {
+      "agent": "planner",
+      "message": "Planner selected extraction tool with LLM reasoning summary.",
+      "metadata": {
+        "selected_tool": "OCR",
+        "reasoning": "Document is image-based and has no embedded text.",
+        "confidence": 1.0,
+        "source": "llm",
+        "model": "llama-3.1-8b-instant"
+      }
+    },
+    {
+      "agent": "ocr_tool",
+      "message": "OCR extracted text from rendered document pages.",
+      "metadata": {
+        "character_count": 433
+      }
+    },
+    {
+      "agent": "classifier",
+      "message": "Classification completed.",
+      "metadata": {
+        "document_type": "invoice",
+        "model": "llama-3.1-8b-instant"
+      }
+    },
+    {
+      "agent": "extractor",
+      "message": "Structured extraction completed.",
+      "metadata": {
+        "document_type": "invoice",
+        "model": "llama-3.1-8b-instant"
+      }
+    },
+    {
+      "agent": "qa",
+      "message": "QA validation completed.",
+      "metadata": {
+        "is_valid": true,
+        "missing_fields": [],
+        "quality_score": 1.0
+      }
+    },
+    {
+      "agent": "reflector",
+      "message": "Reflection completed. Extraction is acceptable for final response.",
+      "metadata": {
+        "is_valid": true,
+        "quality_score": 1.0
+      }
+    }
+  ],
+  "error": null
+}

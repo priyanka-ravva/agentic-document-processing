@@ -1,0 +1,140 @@
+{
+  "timestamp_utc": "20260802T105024Z",
+  "file_path": "sample_docs/invoice_test_0002.jpg",
+  "document_metadata": {
+    "file_name": "invoice_test_0002.jpg",
+    "file_extension": ".jpg",
+    "file_size_bytes": 220646,
+    "page_count": 0,
+    "text_length": 0,
+    "has_embedded_text": false,
+    "image_count": 0,
+    "is_pdf": false
+  },
+  "selected_tool": "OCR",
+  "planner_reasoning": "Document is image-based and has no embedded text.",
+  "structured_output": {
+    "invoice_number": {
+      "value": "12847181",
+      "confidence": 0.95,
+      "evidence": "Invoice no: 12847181"
+    },
+    "invoice_date": {
+      "value": "03/03/2012",
+      "confidence": 0.8,
+      "evidence": "03/03/2012"
+    },
+    "due_date": {
+      "value": null,
+      "confidence": 0.0,
+      "evidence": null
+    },
+    "vendor_name": {
+      "value": "Fitzpatrick and Sons",
+      "confidence": 0.95,
+      "evidence": "Seller: Fitzpatrick and Sons"
+    },
+    "customer_name": {
+      "value": "Duncan PLC",
+      "confidence": 0.95,
+      "evidence": "Client: Duncan PLC"
+    },
+    "subtotal": {
+      "value": "$6,860.45",
+      "confidence": 0.9,
+      "evidence": "$ 6 860,45"
+    },
+    "tax": {
+      "value": "10%",
+      "confidence": 0.8,
+      "evidence": "VAT [%] 10%"
+    },
+    "total_amount": {
+      "value": "$6,860.45",
+      "confidence": 0.9,
+      "evidence": "$ 6 860,45"
+    },
+    "currency": {
+      "value": null,
+      "confidence": 0.0,
+      "evidence": null
+    }
+  },
+  "validation_result": {
+    "is_valid": true,
+    "missing_fields": [],
+    "warnings": [],
+    "quality_score": 1.0
+  },
+  "retry_count": 0,
+  "logs": [
+    {
+      "agent": "document_analyzer",
+      "message": "Document metadata collected.",
+      "metadata": {
+        "metadata": {
+          "file_name": "invoice_test_0002.jpg",
+          "file_extension": ".jpg",
+          "file_size_bytes": 220646,
+          "page_count": 0,
+          "text_length": 0,
+          "has_embedded_text": false,
+          "image_count": 0,
+          "is_pdf": false
+        }
+      }
+    },
+    {
+      "agent": "planner",
+      "message": "Planner selected extraction tool with LLM reasoning summary.",
+      "metadata": {
+        "selected_tool": "OCR",
+        "reasoning": "Document is image-based and has no embedded text.",
+        "confidence": 1.0,
+        "source": "llm",
+        "model": "llama-3.1-8b-instant"
+      }
+    },
+    {
+      "agent": "ocr_tool",
+      "message": "OCR extracted text from rendered document pages.",
+      "metadata": {
+        "character_count": 1013
+      }
+    },
+    {
+      "agent": "classifier",
+      "message": "Classification completed.",
+      "metadata": {
+        "document_type": "invoice",
+        "model": "llama-3.1-8b-instant"
+      }
+    },
+    {
+      "agent": "extractor",
+      "message": "Structured extraction completed.",
+      "metadata": {
+        "document_type": "invoice",
+        "model": "llama-3.1-8b-instant"
+      }
+    },
+    {
+      "agent": "qa",
+      "message": "QA validation completed.",
+      "metadata": {
+        "is_valid": true,
+        "missing_fields": [],
+        "quality_score": 1.0
+      }
+    },
+    {
+      "agent": "reflector",
+      "message": "Reflection completed. Extraction is acceptable for final response.",
+      "metadata": {
+        "is_valid": true,
+        "quality_score": 1.0
+      }
+    }
+  ],
+  "error": null
+}

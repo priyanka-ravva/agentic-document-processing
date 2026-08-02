@@ -1,0 +1,165 @@
+{
+  "timestamp_utc": "20260802T105240Z",
+  "file_path": "sample_docs/test_sample.pdf",
+  "document_metadata": {
+    "file_name": "test_sample.pdf",
+    "file_extension": ".pdf",
+    "file_size_bytes": 18810,
+    "page_count": 1,
+    "text_length": 2877,
+    "has_embedded_text": true,
+    "image_count": 0,
+    "is_pdf": true
+  },
+  "selected_tool": "PDF_PARSER",
+  "planner_reasoning": "PDF has reliable embedded text",
+  "structured_output": {
+    "document_type": "unknown",
+    "summary": "Structured extraction failed for all configured Groq models.",
+    "invoice": null,
+    "contract": null,
+    "medical": null,
+    "additional_fields": {
+      "text_preview": "--- Page 1 ---\nSample PDF\nThis is a simple PDF \ufb01le. Fun fun fun.\nLorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus facilisis odio sed mi. \nCurabitur suscipit. Nullam vel nisi. Etiam semper ipsum ut lectus. Proin aliquam, erat eget \npharetra commodo, eros mi condimentum quam, sed commodo justo quam ut velit. \nInteger a erat. Cras laoreet ligula cursus enim. Aenean scelerisque velit et tellus. \nVestibulum dictum aliquet sem. Nulla facilisi. Vestibulum accumsan ante vitae elit. Nulla \nerat dolor, blandit in, rutrum quis, semper pulvinar, enim. Nullam varius congue risus. \nVivamus sollicitudin, metus ut interdum eleifend, nisi tellus pellentesque elit, tristique \naccumsan eros quam et risus. Suspendisse libero odio, mattis sit amet, aliquet eget, \nhendrerit vel, nulla. Sed vitae augue. Aliquam erat volutpat. Aliquam feugiat vulputate nisl. \nSuspendisse quis nulla pretium ante pretium mollis. Proin velit ligula, sagittis at, egestas a, \npulvinar quis, nisl.\nPellentesque si"
+    },
+    "extraction_warnings": [
+      "llama-3.1-8b-instant: Structured extraction failed with llama-3.1-8b-instant: Error code: 400 - {'error': {'message': 'tool call validation failed: parameters for tool DocumentExtraction did not match schema: errors: [`/medical/medications`: expected array, but got object, `/medical/recommendations`: expected array, but got object, `/medical/diagnosis`: expected array, but got object, `/medical`: expected null, but got object]', 'type': 'invalid_request_error', 'code': 'tool_use_failed', 'failed_generation': '<function=DocumentExtraction> {\"document_type\": \"unknown\", \"summary\": \"This is a sample PDF file containing placeholder text.\", \"extraction_warnings\": [\"Document contains only placeholder text. No relevant structured data found.\"], \"additional_fields\": {\"contract\": {\"contract_title\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}}, \"effective_date\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"governing_law\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"parties\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"term\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"termination_clause\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}}, \"invoice\": {\"invoice_number\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"customer_name\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"due_date\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"invoice_date\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"subtotal\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"tax\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"total_amount\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"vendor_name\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}}, \"medical\": {\"diagnosis\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"medications\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"patient_name\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"provider_name\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"recommendations\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"visit_date\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}}} </function>'}}",
+      "qwen/qwen3.6-27b: Structured extraction failed with qwen/qwen3.6-27b: Error code: 429 - {'error': {'message': 'Rate limit reached for model `qwen/qwen3.6-27b` in organization `org_01kyt7d27qe5r8hpwt71kwgq64` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 196225, Requested 5418. Please try again in 11m49.776s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
+    ]
+  },
+  "validation_result": {
+    "is_valid": false,
+    "missing_fields": [],
+    "warnings": [
+      "llama-3.1-8b-instant: Structured extraction failed with llama-3.1-8b-instant: Error code: 400 - {'error': {'message': 'tool call validation failed: parameters for tool DocumentExtraction did not match schema: errors: [`/medical/medications`: expected array, but got object, `/medical/recommendations`: expected array, but got object, `/medical/diagnosis`: expected array, but got object, `/medical`: expected null, but got object]', 'type': 'invalid_request_error', 'code': 'tool_use_failed', 'failed_generation': '<function=DocumentExtraction> {\"document_type\": \"unknown\", \"summary\": \"This is a sample PDF file containing placeholder text.\", \"extraction_warnings\": [\"Document contains only placeholder text. No relevant structured data found.\"], \"additional_fields\": {\"contract\": {\"contract_title\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}}, \"effective_date\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"governing_law\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"parties\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"term\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"termination_clause\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}}, \"invoice\": {\"invoice_number\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"customer_name\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"due_date\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"invoice_date\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"subtotal\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"tax\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"total_amount\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"vendor_name\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}}, \"medical\": {\"diagnosis\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"medications\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"patient_name\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"provider_name\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"recommendations\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"visit_date\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}}} </function>'}}",
+      "qwen/qwen3.6-27b: Structured extraction failed with qwen/qwen3.6-27b: Error code: 429 - {'error': {'message': 'Rate limit reached for model `qwen/qwen3.6-27b` in organization `org_01kyt7d27qe5r8hpwt71kwgq64` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 196225, Requested 5418. Please try again in 11m49.776s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
+      "Document type is unknown, so only generic validation was applied."
+    ],
+    "quality_score": 0.85
+  },
+  "retry_count": 3,
+  "logs": [
+    {
+      "agent": "document_analyzer",
+      "message": "Document metadata collected.",
+      "metadata": {
+        "metadata": {
+          "file_name": "test_sample.pdf",
+          "file_extension": ".pdf",
+          "file_size_bytes": 18810,
+          "page_count": 1,
+          "text_length": 2877,
+          "has_embedded_text": true,
+          "image_count": 0,
+          "is_pdf": true
+        }
+      }
+    },
+    {
+      "agent": "planner",
+      "message": "Planner selected extraction tool with LLM reasoning summary.",
+      "metadata": {
+        "selected_tool": "PDF_PARSER",
+        "reasoning": "PDF has reliable embedded text",
+        "confidence": 0.9,
+        "source": "llm",
+        "model": "llama-3.1-8b-instant"
+      }
+    },
+    {
+      "agent": "pdf_parser_tool",
+      "message": "PDF parser extracted embedded text.",
+      "metadata": {
+        "character_count": 2892
+      }
+    },
+    {
+      "agent": "classifier",
+      "message": "Classification completed.",
+      "metadata": {
+        "document_type": "unknown",
+        "model": "llama-3.1-8b-instant"
+      }
+    },
+    {
+      "agent": "extractor",
+      "message": "Structured extraction completed.",
+      "metadata": {
+        "document_type": "unknown",
+        "model": "qwen/qwen3.6-27b"
+      }
+    },
+    {
+      "agent": "qa",
+      "message": "QA validation completed.",
+      "metadata": {
+        "is_valid": false,
+        "missing_fields": [],
+        "quality_score": 0.9
+      }
+    },
+    {
+      "agent": "reflector",
+      "message": "Reflection completed. Extraction has gaps; initiating retry 1.",
+      "metadata": {
+        "is_valid": false,
+        "quality_score": 0.9
+      }
+    },
+    {
+      "agent": "extractor",
+      "message": "Structured extraction failed for all configured models; fallback output was created.",
+      "metadata": {
+        "errors": [
+          "llama-3.1-8b-instant: Structured extraction failed with llama-3.1-8b-instant: Error code: 400 - {'error': {'message': 'tool call validation failed: parameters for tool DocumentExtraction did not match schema: errors: [`/medical/recommendations`: expected array, but got object, `/medical/diagnosis`: expected array, but got object, `/medical/medications`: expected array, but got object, `/medical`: expected null, but got object]', 'type': 'invalid_request_error', 'code': 'tool_use_failed', 'failed_generation': '<function=DocumentExtraction> {\"document_type\": \"unknown\", \"summary\": \"This is a sample PDF file containing placeholder text.\", \"extraction_warnings\": [\"Document contains only placeholder text. No relevant structured data found.\"], \"additional_fields\": {\"contract\": {\"contract_title\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}}, \"effective_date\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"governing_law\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"parties\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"term\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"termination_clause\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}}, \"invoice\": {\"invoice_number\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"customer_name\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"due_date\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"invoice_date\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"subtotal\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"tax\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"total_amount\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"vendor_name\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}}, \"medical\": {\"diagnosis\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"medications\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"patient_name\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"provider_name\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"recommendations\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"visit_date\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}}} </function>'}}",
+          "qwen/qwen3.6-27b: Structured extraction failed with qwen/qwen3.6-27b: Error code: 429 - {'error': {'message': 'Rate limit reached for model `qwen/qwen3.6-27b` in organization `org_01kyt7d27qe5r8hpwt71kwgq64` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 196328, Requested 4589. Please try again in 6m36.143999999s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
+        ]
+      }
+    },
+    {
+      "agent": "qa",
+      "message": "QA validation completed.",
+      "metadata": {
+        "is_valid": false,
+        "missing_fields": [],
+        "quality_score": 0.85
+      }
+    },
+    {
+      "agent": "reflector",
+      "message": "Reflection completed. Extraction has gaps; initiating retry 2.",
+      "metadata": {
+        "is_valid": false,
+        "quality_score": 0.85
+      }
+    },
+    {
+      "agent": "extractor",
+      "message": "Structured extraction failed for all configured models; fallback output was created.",
+      "metadata": {
+        "errors": [
+          "llama-3.1-8b-instant: Structured extraction failed with llama-3.1-8b-instant: Error code: 400 - {'error': {'message': 'tool call validation failed: parameters for tool DocumentExtraction did not match schema: errors: [`/medical/medications`: expected array, but got object, `/medical/recommendations`: expected array, but got object, `/medical/diagnosis`: expected array, but got object, `/medical`: expected null, but got object]', 'type': 'invalid_request_error', 'code': 'tool_use_failed', 'failed_generation': '<function=DocumentExtraction> {\"document_type\": \"unknown\", \"summary\": \"This is a sample PDF file containing placeholder text.\", \"extraction_warnings\": [\"Document contains only placeholder text. No relevant structured data found.\"], \"additional_fields\": {\"contract\": {\"contract_title\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}}, \"effective_date\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"governing_law\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"parties\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"term\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"termination_clause\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}}, \"invoice\": {\"invoice_number\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"customer_name\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"due_date\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"invoice_date\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"subtotal\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"tax\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"total_amount\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"vendor_name\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}}, \"medical\": {\"diagnosis\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"medications\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"patient_name\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"provider_name\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"recommendations\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"visit_date\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}}} </function>'}}",
+          "qwen/qwen3.6-27b: Structured extraction failed with qwen/qwen3.6-27b: Error code: 429 - {'error': {'message': 'Rate limit reached for model `qwen/qwen3.6-27b` in organization `org_01kyt7d27qe5r8hpwt71kwgq64` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 196225, Requested 5418. Please try again in 11m49.776s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
+        ]
+      }
+    },
+    {
+      "agent": "qa",
+      "message": "QA validation completed.",
+      "metadata": {
+        "is_valid": false,
+        "missing_fields": [],
+        "quality_score": 0.85
+      }
+    },
+    {
+      "agent": "reflector",
+      "message": "Reflection completed. Extraction has gaps; initiating retry 3.",
+      "metadata": {
+        "is_valid": false,
+        "quality_score": 0.85
+      }
+    }
+  ],
+  "error": "llama-3.1-8b-instant: Structured extraction failed with llama-3.1-8b-instant: Error code: 400 - {'error': {'message': 'tool call validation failed: parameters for tool DocumentExtraction did not match schema: errors: [`/medical/medications`: expected array, but got object, `/medical/recommendations`: expected array, but got object, `/medical/diagnosis`: expected array, but got object, `/medical`: expected null, but got object]', 'type': 'invalid_request_error', 'code': 'tool_use_failed', 'failed_generation': '<function=DocumentExtraction> {\"document_type\": \"unknown\", \"summary\": \"This is a sample PDF file containing placeholder text.\", \"extraction_warnings\": [\"Document contains only placeholder text. No relevant structured data found.\"], \"additional_fields\": {\"contract\": {\"contract_title\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}}, \"effective_date\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"governing_law\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"parties\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"term\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"termination_clause\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}}, \"invoice\": {\"invoice_number\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"customer_name\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"due_date\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"invoice_date\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"subtotal\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"tax\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"total_amount\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"vendor_name\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}}, \"medical\": {\"diagnosis\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"medications\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"patient_name\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"provider_name\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"recommendations\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}, \"visit_date\": {\"value\": null, \"confidence\": 0.0, \"evidence\": null}}} </function>'}} | qwen/qwen3.6-27b: Structured extraction failed with qwen/qwen3.6-27b: Error code: 429 - {'error': {'message': 'Rate limit reached for model `qwen/qwen3.6-27b` in organization `org_01kyt7d27qe5r8hpwt71kwgq64` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 196225, Requested 5418. Please try again in 11m49.776s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
+}
