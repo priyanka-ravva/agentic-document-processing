@@ -3,75 +3,80 @@
     "id": "invoice_simple",
     "name": "Simple searchable invoice",
     "passed": true,
-    "duration_seconds": 1.44,
+    "duration_seconds": 1.21,
     "expected_document_type": "invoice",
     "actual_document_type": "invoice",
     "expected_tool": "PDF_PARSER",
     "actual_tool": "PDF_PARSER",
     "missing_required_fields": [],
     "quality_score": 1.0,
-    "trace_path": "logs/runs/20260802T104913Z_invoice_simple_trace.json"
+    "trace_path": "logs/runs/20260802T172327Z_invoice_simple_trace.json"
   },
   {
     "id": "medical_discharge",
     "name": "Medical discharge summary",
     "passed": true,
-    "duration_seconds": 1.23,
+    "duration_seconds": 1.36,
     "expected_document_type": "medical",
     "actual_document_type": "medical",
     "expected_tool": "PDF_PARSER",
     "actual_tool": "PDF_PARSER",
     "missing_required_fields": [],
     "quality_score": 1.0,
-    "trace_path": "logs/runs/20260802T104914Z_medical_discharge_trace.json"
+    "trace_path": "logs/runs/20260802T172329Z_medical_discharge_trace.json"
   },
   {
     "id": "contract_nda",
     "name": "Non-disclosure agreement",
     "passed": true,
-    "duration_seconds": 34.71,
+    "duration_seconds": 30.46,
     "expected_document_type": "contract",
     "actual_document_type": "contract",
     "expected_tool": "PDF_PARSER",
     "actual_tool": "PDF_PARSER",
     "missing_required_fields": [],
     "quality_score": 1.0,
-    "trace_path": "logs/runs/20260802T104949Z_contract_nda_trace.json"
+    "trace_path": "logs/runs/20260802T172359Z_contract_nda_trace.json"
   },
   {
     "id": "invoice_image_ocr",
     "name": "Image invoice requiring OCR",
-    "passed": true,
-    "duration_seconds": 34.92,
+    "passed": false,
+    "duration_seconds": 61.41,
     "expected_document_type": "invoice",
     "actual_document_type": "invoice",
     "expected_tool": [
       "OCR",
       "VISION_LLM"
     ],
-    "actual_tool": "OCR",
-    "missing_required_fields": [],
-    "quality_score": 1.0,
-    "trace_path": "logs/runs/20260802T105024Z_invoice_test_0002_trace.json"
+    "actual_tool": "VISION_LLM",
+    "missing_required_fields": [
+      "invoice_number.value",
+      "invoice_date.value",
+      "vendor_name.value",
+      "total_amount.value"
+    ],
+    "quality_score": 0.25,
+    "trace_path": "logs/runs/20260802T172500Z_invoice_test_0002_trace.json"
   },
   {
     "id": "unknown_test_sample",
     "name": "Unknown document sample",
     "passed": true,
-    "duration_seconds": 135.78,
+    "duration_seconds": 57.63,
     "expected_document_type": "unknown",
     "actual_document_type": "unknown",
     "expected_tool": "PDF_PARSER",
     "actual_tool": "PDF_PARSER",
     "missing_required_fields": [],
-    "quality_score": 0.85,
-    "trace_path": "logs/runs/20260802T105240Z_test_sample_trace.json"
+    "quality_score": 0.95,
+    "trace_path": "logs/runs/20260802T172558Z_test_sample_trace.json"
   },
   {
     "id": "invoice_image_ocr_0007",
     "name": "Additional image invoice requiring OCR",
     "passed": true,
-    "duration_seconds": 3.41,
+    "duration_seconds": 28.19,
     "expected_document_type": "invoice",
     "actual_document_type": "invoice",
     "expected_tool": [
@@ -81,6 +86,6 @@
     "actual_tool": "OCR",
     "missing_required_fields": [],
     "quality_score": 1.0,
-    "trace_path": "logs/runs/20260802T105456Z_invoice_test_0007_trace.json"
+    "trace_path": "logs/runs/20260802T172626Z_invoice_test_0007_trace.json"
   }
 ]
